@@ -8,10 +8,12 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Notifications\Notifiable;
 
-class User extends Authenticatable implements JWTSubject
+class Admin extends Authenticatable implements JWTSubject
 {
 
 	use HasFactory, Notifiable;
+
+	protected $table = 'admin';
 
 	/**
 	* The attributes that are mass assignable.
@@ -32,6 +34,7 @@ class User extends Authenticatable implements JWTSubject
 	protected $hidden = [
 		'password',
 		'remember_token',
+		'admin_token',
 	];
 
 	/**
@@ -53,6 +56,10 @@ class User extends Authenticatable implements JWTSubject
 		return $this->getKey();
 	}
 
+	public function setRememberToken($value)
+	{
+		$this->remember_token = $value;
+	}
 	/**
 	* Return a key value array, containing any custom claims to be added to the JWT.
 	*
